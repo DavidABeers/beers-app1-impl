@@ -8,6 +8,7 @@ public class ListItem {
     private String name;
     private String due;
     private String description;
+    private Boolean complete = false;
 
     public void setName(String name) {
         this.name = name;
@@ -21,6 +22,10 @@ public class ListItem {
         this.due = due;
     }
 
+    public void setComplete(Boolean complete) {
+        this.complete = complete;
+    }
+
     public String getName() {
         return name;
     }
@@ -31,5 +36,9 @@ public class ListItem {
 
     public String getDescription() {
         return description;
+    }
+
+    public Boolean getComplete() {
+        return complete;
     }
 }
