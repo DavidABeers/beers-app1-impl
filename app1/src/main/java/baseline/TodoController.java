@@ -26,7 +26,7 @@ public class TodoController{
     private Stage primaryStage;
 
     @FXML
-    DatePicker dateField;
+    private DatePicker dateField;
 
     @FXML
     private TextArea detailsField;
@@ -35,7 +35,7 @@ public class TodoController{
     ListView<ListItem> itemsListView;
 
     @FXML
-    Label isComplete;
+    private Label isComplete;
 
     @FXML
     private TextField titleField;
@@ -104,13 +104,13 @@ public class TodoController{
 
 
     @FXML
-    void updateDetails(KeyEvent event){
+    private void updateDetails(KeyEvent event){
         // will modify the details of the active item
         ha.setDetails(itemsListView.getSelectionModel().getSelectedItem(), detailsField.getText());
     }
 
     @FXML
-    void setDate(ActionEvent event){
+    private void setDate(ActionEvent event){
         // will call a function to set the date of the active item
         LocalDate date = dateField.getValue();
         ha.setDueDate(itemsListView.getSelectionModel().getSelectedItem(), date);
@@ -118,7 +118,7 @@ public class TodoController{
     }
 
     @FXML
-    void saveData(ActionEvent event){
+    private void saveData(ActionEvent event){
         // will set all data in the item to the current data on the panel
         ha.setDetails(itemsListView.getSelectionModel().getSelectedItem(), detailsField.getText());
         ha.setTitle(itemsListView.getSelectionModel().getSelectedItem(), titleField.getText());
@@ -126,13 +126,13 @@ public class TodoController{
     }
 
     @FXML
-    void updateTitle(ActionEvent event){
+    private void updateTitle(ActionEvent event){
         // sets the new title
         ha.setTitle(itemsListView.getSelectionModel().getSelectedItem(), titleField.getText());
     }
 
     @FXML
-    void toggleComplete(ActionEvent event){
+    private void toggleComplete(ActionEvent event){
         // changes the complete field of the active item to the opposite of its current state.
         ha.toggleCompleteBool(itemsListView.getSelectionModel().getSelectedItem());
         // moves the item onto its new filtered list
@@ -149,7 +149,7 @@ public class TodoController{
     }
 
     @FXML
-    void loadSaveFile(ActionEvent event){
+    private void loadSaveFile(ActionEvent event){
         // make a file chooser
         FileChooser openFile = new FileChooser();
         openFile.setTitle("Load Save File");
@@ -162,7 +162,7 @@ public class TodoController{
     }
 
     @FXML
-    void saveCurrentList(ActionEvent event){
+    private void saveCurrentList(ActionEvent event){
         // opens a file chooser
         FileChooser fileSaver = new FileChooser();
         fileSaver.setTitle("Save Todo List");
@@ -177,20 +177,20 @@ public class TodoController{
     }
 
     @FXML
-    void eraseList(ActionEvent event){
+    private void eraseList(ActionEvent event){
         // deletes selected list
         ha.clear(itemsList);
     }
 
     @FXML
-    void makeNewItem(ActionEvent event){
+    private void makeNewItem(ActionEvent event){
         // creates a new item in a to-do list
         ha.addItem(itemsList);
         ha.addItem(incompleteItemsList);
     }
 
     @FXML
-    void deleteListItem(ActionEvent event){
+    private void deleteListItem(ActionEvent event){
         // removes selected item from the to-do list
         ha.removeItem(itemsList, itemsListView.getSelectionModel().getSelectedItem());
         if(!itemsListView.getSelectionModel().getSelectedItem().getComplete()){ // If I unbox this it still yells at me, and I need to be able to toString it elsewhere.
@@ -202,17 +202,17 @@ public class TodoController{
     }
 
     @FXML
-    void showAll(ActionEvent event){
+    private void showAll(ActionEvent event){
         // disable filter
         itemsListView.setItems(itemsList.getItemsList());
     }
     @FXML
-    void showComplete(ActionEvent event){
+    private void showComplete(ActionEvent event){
         // only show items marked complete
         itemsListView.setItems(completeItemsList.getItemsList());
     }
     @FXML
-    void showIncomplete(ActionEvent event){
+    private void showIncomplete(ActionEvent event){
         // only show items no marked complete
         itemsListView.setItems(incompleteItemsList.getItemsList());
     }
@@ -223,7 +223,7 @@ public class TodoController{
     }
 
     @FXML
-    void getItemDetails(MouseEvent event){
+    private void getItemDetails(MouseEvent event){
         // will grab detail to display on the pane
         detailsField.setText(itemsListView.getSelectionModel().getSelectedItem().getDescription());
     }

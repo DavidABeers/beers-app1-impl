@@ -11,7 +11,73 @@ Items itemsList
 Items completeItemsList
 Items incompleteItemsList
 ToggleGroup filters
--primaryStage
-
+-Stage primaryStage
+-DatePicker dateField
+-TextArea detailField
+ListView itemsListView
+-Label isComplete
+-TextField titleField
+-ToggleButton markComplete
+-RadioButton radioAll
+-RadioButton radoComplete
+-RadioButton radioIncomplete
++setStage()
++initialize()
+-updateDetail()
+-setDate()
+-saveData()
+-updateTitle()
+-toggleComplete()
+-loadSaveFile()
+-saveCurrentList()
+-eraseList()
+-makeNewItem()
+-deleteListItem()
+-showAll()
+-showComplete()
+-showIncomplete()
+-scroll()
+-getItemDetails()
 }
+
+class ListItem{
+-String name
+-String due
+-String description
+-Boolean complete
++setName()
++setDescription()
++setDue()
++setComplete()
++String getName()
++String getDue()
++String getDescription
+Boolean getComplete
+}
+class Items{
+-ObservableList itemsList
++addItem()
++clearList()
++ListItem getItem()
++ObservableList getItemsList()
+}
+class HandlerActions{
++addItem()
++addExistingItem()
++clear()
++toggleCompleteBool()
++setDueDate()
++setTitle()
++setDetails()
+-writeToSaveFile()
++saveListFile()
+-readSaveFile()
++loadListFile()
+}
+
+TodoController -- TodoListApplication
+TodoController --|>HandlerActions
+ListItem<|--Items
+Items<|--TodoController
+
 @enduml
