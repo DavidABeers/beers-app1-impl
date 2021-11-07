@@ -5,14 +5,16 @@
 package baseline;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
+
+import java.time.LocalDate;
 
 
 public class TodoController{
+    HandlerActions ha = new HandlerActions();
     Items itemsList = new Items();
+    ToggleGroup filters = new ToggleGroup();
 
     public TodoController(){
 
@@ -37,7 +39,7 @@ public class TodoController{
     private MenuItem clearList;
 
     @FXML
-    private DatePicker dateField;
+    DatePicker dateField;
 
     @FXML
     private TextArea detailsField;
@@ -46,7 +48,8 @@ public class TodoController{
     private ScrollPane listScroller;
 
     @FXML
-    private ListView<ListItem> itemsListView;
+    ListView<ListItem> itemsListView;
+
 
     @FXML
     private TextField titleField;
@@ -58,6 +61,25 @@ public class TodoController{
     @FXML
     private RadioButton radioIncomplete;
 
+    public void initialize(){
+        // assign the list in Items to itemsListView
+        itemsListView.setItems(itemsList.getItemsList());
+        // set a character limit for the description
+        detailsField.setTextFormatter(new TextFormatter<>(change ->
+                change.getControlNewText().length() <= 256 ? change : null));
+        // put the radio buttons in a toggle group, I couldn't find a way to do this in scene builder
+        radioAll.setToggleGroup(filters);
+        radioComplete.setToggleGroup(filters);
+        radioIncomplete.setToggleGroup(filters);
+
+        /*itemsListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ListItem>() {
+            @Override
+            public void changed(ObservableValue<? extends ListItem> observable, ListItem oldValue, ListItem newValue) {
+
+            }
+        });*/
+    }
+
     @FXML
     void updateDetails(ActionEvent event){
         // will modify the details of the active item
@@ -66,21 +88,26 @@ public class TodoController{
     @FXML
     void setDate(ActionEvent event){
         // will call a function to set the date of the active item
+        LocalDate date = dateField.getValue();
+        ha.setDueDate(itemsListView.getSelectionModel().getSelectedItem(), date);
     }
 
     @FXML
     void saveData(ActionEvent event){
         // will set all data in the item to the current data on the panel
+        ha.setDetails(itemsListView.getSelectionModel().getSelectedItem(), detailsField.getText());
     }
 
     @FXML
     void updateTitle(ActionEvent event){
         // sets the new title
+        ha.setTitle(itemsListView.getSelectionModel().getSelectedItem(), titleField.getText());
     }
 
     @FXML
     void toggleComplete(ActionEvent event){
         // changes the complete field of the active item to the opposite of its current state.
+        ha.toggleCompleteBool(itemsListView.getSelectionModel().getSelectedItem());
     }
 
     public void makeSaveFile(String filename){
@@ -109,20 +136,19 @@ public class TodoController{
     @FXML
     void eraseList(ActionEvent event){
         // deletes selected list
+        ha.clear(itemsList);
     }
 
     @FXML
     void makeNewItem(ActionEvent event){
         // creates a new item in a to-do list
-        newListItem.setOnAction(event1 -> {
-            ListItem item = new ListItem();
-            itemsList.addItem(item);
-        });
+        ha.addItem(itemsList);
     }
 
     @FXML
     void deleteListItem(ActionEvent event){
         // removes selected item from the to-do list
+        ha.removeItem(itemsList, itemsListView.getSelectionModel().getSelectedItem());
     }
     private void completeCheckboxClicked(ActionEvent event){
         // set the complete field for the item to true

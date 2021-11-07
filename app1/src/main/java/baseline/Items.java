@@ -1,3 +1,8 @@
+/*
+ *  UCF COP3330 Fall 2021 Application Assignment 1 Solution
+ *  Copyright 2021 David Beers
+ */
+
 package baseline;
 
 import javafx.collections.FXCollections;
@@ -15,7 +20,10 @@ public class Items {
     public void clearList(){
         itemsList.clear();
     }
-    public ListItem getItem(ListItem item){
-        return itemsList.get(itemsList.indexOf(item));
+    public ListItem getItem(int index){
+        return itemsList.get(index);
+    }
+    public ObservableList<ListItem> getItemsList(){
+        return this.itemsList;
     }
 }

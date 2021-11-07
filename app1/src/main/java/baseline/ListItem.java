@@ -9,6 +9,7 @@ public class ListItem {
     private String due;
     private String description;
     private Boolean complete = false;
+    private Boolean selected = false;
 
     public void setName(String name) {
         this.name = name;
