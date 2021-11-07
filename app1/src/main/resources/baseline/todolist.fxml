@@ -50,95 +50,97 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="baseline.TodoController" >
-  <children>
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="baseline.TodoController">
     <MenuBar VBox.vgrow="NEVER">
-      <menus>
         <Menu mnemonicParsing="false" text="File">
-          <items>
-            <MenuItem fx:id="loadList" mnemonicParsing="false" onAction="#loadSaveFile" text="Load" />
-            <MenuItem fx:id="saveList" mnemonicParsing="false" onAction="#saveCurrentList" text="Save" />
-          </items>
+            <MenuItem fx:id="loadList" mnemonicParsing="false" onAction="#loadSaveFile" text="Load"/>
+            <MenuItem fx:id="saveList" mnemonicParsing="false" onAction="#saveCurrentList" text="Save"/>
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
-          <items>
-            <MenuItem fx:id="newListItem" mnemonicParsing="false" onAction="#makeNewItem" text="New Item" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="removeListItem" mnemonicParsing="false" onAction="#deleteListItem" text="Remove" />
-            <MenuItem fx:id="clearList" mnemonicParsing="false" onAction="#eraseList" text="Clear List" />
-          </items>
+            <MenuItem fx:id="newListItem" mnemonicParsing="false" onAction="#makeNewItem" text="New Item"/>
+            <SeparatorMenuItem mnemonicParsing="false"/>
+            <MenuItem fx:id="removeListItem" mnemonicParsing="false" onAction="#deleteListItem" text="Remove"/>
+            <MenuItem fx:id="clearList" mnemonicParsing="false" onAction="#eraseList" text="Clear List"/>
         </Menu>
-      </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
-      <children>
-        <Label alignment="CENTER" layoutX="155.0" layoutY="177.0" style="&#10;" text="Drag components from Library here…" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
-          <font>
-            <Font size="18.0" />
-          </font>
+    <AnchorPane VBox.vgrow="ALWAYS">
+        <Label alignment="CENTER" layoutX="155.0" layoutY="177.0" style="&#10;"
+               text="Drag components from Library here…" textAlignment="CENTER" textFill="#9f9f9f">
+            <font>
+                <Font size="18.0"/>
+            </font>
         </Label>
-            <SplitPane dividerPositions="0.09090909090909091" orientation="VERTICAL" prefHeight="376.0" prefWidth="640.0">
-              <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="12.0" prefWidth="638.0">
-                     <children>
-                        <Label alignment="CENTER" layoutX="163.0" layoutY="1.0" prefHeight="17.0" prefWidth="62.0" style="&#10;" text="Display:" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
+        <SplitPane dividerPositions="0.09090909090909091" orientation="VERTICAL" prefHeight="376.0"
+                   prefWidth="640.0">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="12.0" prefWidth="638.0">
+                <Label alignment="CENTER" layoutX="14.0" layoutY="1.0" prefHeight="17.0" prefWidth="62.0"
+                       style="&#10;" text="Display:" textAlignment="CENTER" textFill="#9f9f9f">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </Label>
+                <RadioButton fx:id="radioAll" layoutX="83.0" layoutY="6.0" mnemonicParsing="false"
+                             onAction="#showAll" text="All"/>
+                <RadioButton fx:id="radioComplete" layoutX="128.0" layoutY="6.0" mnemonicParsing="false"
+                             onAction="#showComplete" text="Complete"/>
+                <RadioButton fx:id="radioIncomplete" layoutX="210.0" layoutY="6.0" mnemonicParsing="false"
+                             onAction="#showIncomplete" text="Incomplete"/>
+            </AnchorPane>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                <SplitPane dividerPositions="0.29797979797979796" layoutX="1.0" layoutY="6.0"
+                           prefHeight="324.0" prefWidth="638.0">
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                        <ScrollPane fx:id="listScroller" layoutX="-6.0" layoutY="26.0"
+                                    onScroll="#scroll" prefHeight="299.0" prefWidth="200.0">
+                            <ListView id="itemsListView" fx:id="itemsListView"
+                                      onMouseClicked="#getItemDetails" prefHeight="284.0"
+                                      prefWidth="200.0"/>
+                        </ScrollPane>
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="62.0" style="&#10;"
+                               text="Items:" textAlignment="CENTER" textFill="#9f9f9f">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
                         </Label>
-                        <RadioButton fx:id="radioAll" layoutX="232.0" layoutY="6.0" mnemonicParsing="false" onAction="#showAll" text="All" />
-                        <RadioButton fx:id="radioComplete" layoutX="273.0" layoutY="6.0" mnemonicParsing="false" onAction="#showComplete" text="Complete" />
-                        <RadioButton fx:id="radioIncomplete" layoutX="353.0" layoutY="6.0" mnemonicParsing="false" onAction="#showIncomplete" text="Incomplete" />
-                     </children>
-                  </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                     <children>
-                        <SplitPane dividerPositions="0.29797979797979796" layoutX="1.0" layoutY="6.0" prefHeight="324.0" prefWidth="638.0">
-                          <items>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                                 <children>
-                                    <ScrollPane fx:id="listScroller" layoutX="-6.0" layoutY="26.0" onScroll="#scroll" prefHeight="299.0" prefWidth="200.0">
-                                       <content>
-                                          <ListView id="itemsListView" fx:id="itemsListView" onMouseClicked="#getItemDetails" prefHeight="284.0" prefWidth="200.0" />
-                                       </content></ScrollPane>
-                                    <Label alignment="CENTER" prefHeight="17.0" prefWidth="62.0" style="&#10;" text="Items:" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </AnchorPane>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                                 <children>
-                                    <Label alignment="CENTER" layoutX="14.0" layoutY="69.0" prefHeight="17.0" prefWidth="62.0" style="&#10;" text="Details:" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <Label alignment="CENTER" layoutX="7.0" layoutY="1.0" prefHeight="27.0" prefWidth="55.0" style="&#10;" text="Due:" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <TextArea fx:id="detailsField" layoutX="14.0" layoutY="96.0" onKeyTyped="#updateDetails" prefHeight="212.0" prefWidth="413.0" />
-                                    <DatePicker fx:id="dateField" layoutX="54.0" layoutY="2.0" onAction="#setDate" />
-                                    <Button fx:id="saveChanges" layoutX="339.0" layoutY="2.0" mnemonicParsing="false" onAction="#saveData" text="Save Changes" />
-                                    <Label alignment="CENTER" layoutX="4.0" layoutY="36.0" prefHeight="17.0" prefWidth="62.0" style="&#10;" text="Title:" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <TextField fx:id="titleField" layoutX="62.0" layoutY="37.0" onAction="#updateTitle" />
-                                    <ToggleButton fx:id="markComplete" layoutX="228.0" layoutY="37.0" mnemonicParsing="false" onAction="#toggleComplete" text="Toggle Complete" />
-                                 </children>
-                              </AnchorPane>
-                          </items>
-                        </SplitPane>
-                     </children>
-                  </AnchorPane>
-              </items>
-            </SplitPane>
-      </children>
+                    </AnchorPane>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                        <Label alignment="CENTER" layoutX="14.0" layoutY="69.0" prefHeight="17.0"
+                               prefWidth="62.0" style="&#10;" text="Details:" textAlignment="CENTER"
+                               textFill="#9f9f9f">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="7.0" layoutY="1.0" prefHeight="27.0"
+                               prefWidth="55.0" style="&#10;" text="Due:" textAlignment="CENTER"
+                               textFill="#9f9f9f">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </Label>
+                        <TextArea fx:id="detailsField" layoutX="14.0" layoutY="96.0"
+                                  onKeyTyped="#updateDetails" prefHeight="212.0" prefWidth="413.0"/>
+                        <DatePicker fx:id="dateField" layoutX="54.0" layoutY="2.0"
+                                    onAction="#setDate"/>
+                        <Button fx:id="saveChanges" layoutX="339.0" layoutY="2.0"
+                                mnemonicParsing="false" onAction="#saveData" text="Save Changes"/>
+                        <Label alignment="CENTER" layoutX="4.0" layoutY="36.0" prefHeight="17.0"
+                               prefWidth="62.0" style="&#10;" text="Title:" textAlignment="CENTER"
+                               textFill="#9f9f9f">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </Label>
+                        <TextField fx:id="titleField" layoutX="62.0" layoutY="37.0"
+                                   onAction="#updateTitle"/>
+                        <ToggleButton fx:id="markComplete" layoutX="228.0" layoutY="37.0"
+                                      mnemonicParsing="false" onAction="#toggleComplete"
+                                      text="Toggle Complete"/>
+                        <Label fx:id="isComplete" layoutX="345.0" layoutY="41.0" text="Incomplete"/>
+                    </AnchorPane>
+                </SplitPane>
+            </AnchorPane>
+        </SplitPane>
     </AnchorPane>
-  </children>
 </VBox>

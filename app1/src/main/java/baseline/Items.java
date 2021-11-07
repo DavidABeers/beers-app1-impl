@@ -9,7 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Items {
-    private ObservableList<ListItem> itemsList = FXCollections.observableArrayList();
+    private final ObservableList<ListItem> itemsList = FXCollections.observableArrayList();
 
     public void addItem(ListItem item){
         itemsList.add(item);

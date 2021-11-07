@@ -16,15 +16,15 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 public class HandlerActions {
-    private Stage primaryStage;
 
-    public void setStage(Stage stage){
-        primaryStage = stage;
-    }
 
     public void addItem(Items itemsList){
             ListItem item = new ListItem();
             itemsList.addItem(item);
+    }
+
+    public void addExistingItem(Items itemsList, ListItem item){
+        itemsList.addItem(item);
     }
 
     public void removeItem(Items itemsList, ListItem item){
@@ -51,10 +51,11 @@ public class HandlerActions {
         item.setDescription(details);
     }
 
-    public void writeToSave(File file, Items itemsList){
+    private void writeToSave(File file, Items itemsList){
         // helper function for saveListFile, makes and writes the save file
         try{
             if(file.createNewFile()){
+                // I did close the resource
                 FileWriter writer = new FileWriter(file);
                 for(ListItem item: itemsList.getItemsList()){
                     writer.write(item.getName() +"\n");
@@ -69,16 +70,12 @@ public class HandlerActions {
         }
     }
 
-    public void saveListFile(Items itemsList){
-        // opens a file chooser
-        FileChooser fileSaver = new FileChooser();
-        fileSaver.setTitle("Save Todo List");
-        // make a file object with the file chooser
-        File saveFile = fileSaver.showSaveDialog(primaryStage);
+    public void saveListFile(Items itemsList, File saveFile){
+
         writeToSave(saveFile, itemsList);
     }
 
-    public void readSaveFile(File file, Items itemsList){
+    private void readSaveFile(File file, Items itemsList){
         // helper for loadListFile
         try {
             Scanner saveReader = new Scanner(file);
@@ -101,10 +98,9 @@ public class HandlerActions {
             e.printStackTrace();
         }
     }
-    public void loadListFile(Items itemsList){
-        FileChooser openFile = new FileChooser();
-        openFile.setTitle("Load Save File");
-        File save = openFile.showOpenDialog(primaryStage);
+    public void loadListFile(Items itemsList, File save){
+
+        // replace itemsList with the loaded list
         readSaveFile(save, itemsList);
     }
 

@@ -25,8 +25,8 @@ public class TodoListApplication extends Application {
         stage.setScene(scene);
 
         stage.setTitle("Todo List Manager");
-        HandlerActions ha = new HandlerActions();
-        ha.setStage(stage);
+        TodoController controller = new TodoController();
+        controller.setStage(stage);
         stage.show();
     }
 }

@@ -1,0 +1,17 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+class TodoListApplication{
++main()
++start()
+}
+class TodoController{
+HandlerActions ha
+Items itemsList
+Items completeItemsList
+Items incompleteItemsList
+ToggleGroup filters
+-primaryStage
+
+}
+@enduml
