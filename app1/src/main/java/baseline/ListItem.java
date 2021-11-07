@@ -5,11 +5,10 @@
 package baseline;
 
 public class ListItem {
-    private String name;
-    private String due;
-    private String description;
+    private String name = "untitled item";
+    private String due = "YYYY-MM-DD";
+    private String description = "your description here";
     private Boolean complete = false;
-    private Boolean selected = false;
 
     public void setName(String name) {
         this.name = name;

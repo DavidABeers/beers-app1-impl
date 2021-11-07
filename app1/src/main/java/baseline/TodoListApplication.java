@@ -18,13 +18,15 @@ public class TodoListApplication extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("todolist.fxml")));
 
         Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
+        stage.setScene(scene);
 
-        primaryStage.setTitle("Todo List Manager");
-        primaryStage.show();
+        stage.setTitle("Todo List Manager");
+        HandlerActions ha = new HandlerActions();
+        ha.setStage(stage);
+        stage.show();
     }
 }

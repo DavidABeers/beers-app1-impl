@@ -4,12 +4,13 @@
  */
 package baseline;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.time.LocalDate;
-
 
 public class TodoController{
     HandlerActions ha = new HandlerActions();
@@ -55,6 +56,9 @@ public class TodoController{
     private TextField titleField;
 
     @FXML
+    private ToggleButton markComplete;
+
+    @FXML
     private RadioButton radioAll;
     @FXML
     private RadioButton radioComplete;
@@ -72,17 +76,26 @@ public class TodoController{
         radioComplete.setToggleGroup(filters);
         radioIncomplete.setToggleGroup(filters);
 
-        /*itemsListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ListItem>() {
+
+
+        // event listener to show the selected item's information on the pane
+        itemsListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ListItem>() {
             @Override
             public void changed(ObservableValue<? extends ListItem> observable, ListItem oldValue, ListItem newValue) {
-
+                detailsField.setText(itemsListView.getSelectionModel().getSelectedItem().getDescription());
+                titleField.setText(itemsListView.getSelectionModel().getSelectedItem().getName());
+                dateField.setValue(LocalDate.parse(itemsListView.getSelectionModel().getSelectedItem().getDue()));
+                markComplete.setSelected(itemsListView.getSelectionModel().getSelectedItem().getComplete());
             }
-        });*/
+        });
+
+
     }
 
     @FXML
     void updateDetails(ActionEvent event){
         // will modify the details of the active item
+        ha.setDetails(itemsListView.getSelectionModel().getSelectedItem(), detailsField.getText());
     }
 
     @FXML
@@ -90,6 +103,7 @@ public class TodoController{
         // will call a function to set the date of the active item
         LocalDate date = dateField.getValue();
         ha.setDueDate(itemsListView.getSelectionModel().getSelectedItem(), date);
+        dateField.getEditor().setText(itemsListView.getSelectionModel().getSelectedItem().getDue());
     }
 
     @FXML
@@ -110,27 +124,17 @@ public class TodoController{
         ha.toggleCompleteBool(itemsListView.getSelectionModel().getSelectedItem());
     }
 
-    public void makeSaveFile(String filename){
-        // open a file writer
-        // for each list selected
-        // write list name
-        // for each item
-        // write item, description, and due date
-    }
-
     @FXML
     void loadSaveFile(ActionEvent event){
-        // open a file object
-        // open a file scanner
-        // while save has a next line
-        // put list to list ListView
-        // while next line is not another list
-        // put items to items listView
+        // clears the itemsList and adds read in items to it
+        ha.loadListFile(itemsList);
     }
 
     @FXML
     void saveCurrentList(ActionEvent event){
-        // saves the currently selected to do lists using makeSaveFile
+        // saves the open list
+        ha.saveListFile(itemsList);
+
     }
 
     @FXML
@@ -174,5 +178,6 @@ public class TodoController{
     @FXML
     void getItemDetails(ActionEvent event){
         // will grab detail to display on the pane
+        detailsField.setText(itemsListView.getSelectionModel().getSelectedItem().getDescription());
     }
 }
