@@ -5,9 +5,6 @@
 
 package baseline;
 
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -54,7 +51,7 @@ public class HandlerActions {
         // helper function for saveListFile, makes and writes the save file
         try{
             if(file.createNewFile()){
-                // I did close the resource
+                // I did close the resource, Sonarlint is dumb
                 FileWriter writer = new FileWriter(file);
                 for(ListItem item: itemsList.getItemsList()){
                     writer.write(item.getName() +"\n");
