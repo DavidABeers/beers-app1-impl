@@ -17,7 +17,6 @@ import java.util.Scanner;
 
 public class HandlerActions {
 
-
     public void addItem(Items itemsList){
             ListItem item = new ListItem();
             itemsList.addItem(item);

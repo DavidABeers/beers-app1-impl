@@ -83,19 +83,16 @@ public class TodoController{
 
             @Override
             public ListCell<ListItem> call(ListView<ListItem> p) {
-                // I need this to override the displayed cell names, I think, so SonarLint will just have to chill
+                // I need this to override the displayed cell names, so SonarLint will just have to chill
                 ListCell<ListItem> cell = new ListCell<>() {
 
                     @Override
                     protected void updateItem(ListItem item, boolean empty) {
                         super.updateItem(item, empty);
-                        if (item != null) {
-                            setText(item.getName());
-                        }
+                        setText((empty || item == null) ? null : item.getName());
                     }
 
-                };
-
+            };
                 return cell;
             }
         });
@@ -138,13 +135,13 @@ public class TodoController{
         // moves the item onto its new filtered list
         if(!itemsListView.getSelectionModel().getSelectedItem().getComplete()){
             isComplete.setText("incomplete");
-            ha.addExistingItem(completeItemsList, itemsListView.getSelectionModel().getSelectedItem());
-            ha.removeItem(incompleteItemsList, itemsListView.getSelectionModel().getSelectedItem());
+            ha.addExistingItem(incompleteItemsList, itemsListView.getSelectionModel().getSelectedItem());
+            ha.removeItem(completeItemsList, itemsListView.getSelectionModel().getSelectedItem());
         }
         else {
             isComplete.setText("complete");
-            ha.addExistingItem(incompleteItemsList, itemsListView.getSelectionModel().getSelectedItem());
-            ha.removeItem(completeItemsList, itemsListView.getSelectionModel().getSelectedItem());
+            ha.addExistingItem(completeItemsList, itemsListView.getSelectionModel().getSelectedItem());
+            ha.removeItem(incompleteItemsList, itemsListView.getSelectionModel().getSelectedItem());
         }
     }
 
@@ -185,8 +182,9 @@ public class TodoController{
     @FXML
     private void makeNewItem(ActionEvent event){
         // creates a new item in a to-do list
-        ha.addItem(itemsList);
-        ha.addItem(incompleteItemsList);
+        ListItem item = new ListItem();
+        ha.addExistingItem(itemsList, item);
+        ha.addExistingItem(incompleteItemsList, item);
     }
 
     @FXML

@@ -1,0 +1,39 @@
+/*
+ *  UCF COP3330 Fall 2021 Application Assignment 1 Solution
+ *  Copyright 2021 David Beers
+ */
+
+Todo List Manager User Guide
+============================
+1) Adding items to the list:
+    To add an item to the list, click "Edit" in the menu bar, then "New Item", and a new, untitled item will appear on the list
+
+2) Removing Items from the list:
+    To remove only the currently selected item from the list, click "Edit", then "remove".
+    To delete all items from the list, click "Edit", then "Clear List".
+
+3) Editing Item Properties:
+    To access an item's properties, select the item in the list.
+
+    a) Retitling an item:
+        Replace the text in the "Title" field with the new item name, then click "save changes".
+
+    b) Edit item description:
+        Put you description in the "details" field, then click "save changes". The description may not be more than 256 characters.
+
+    c) Edit an item's due date:
+        Select the date picker, and choose a date.
+
+    d) Mark an item as complete or incomplete:
+        Click "Toggle Complete". The text to the right displays the item's current status
+
+4) Saving Your List:
+    To save a list, click "File", then "Save". Provide a file name and save location, then click "Save" again.
+
+5) Loading a List:
+    To load a list, click "File", then "Load", select the properly formatted text file, then click "Open".
+
+6) Filtering the List:
+    The list can be filtered by the button to the right of the text saying "Display". "All" will show all items in the list.
+    "Complete" will show only complete items in the list.
+    "Incomplete" will show only incomplete items in the list.
